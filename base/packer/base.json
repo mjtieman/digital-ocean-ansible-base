@@ -1,0 +1,41 @@
+{
+    "variables" : {
+        "version" : "",
+        "api-token" : "",
+        "ssh-key-name" : "",
+        "droplet-user-password" : "test"
+    },
+    "builders" : [{
+        "type" : "digitalocean",
+        "api_token" : "{{ user `api-token` }}",
+        "image" : "ubuntu-16-04-x64",
+        "region" : "nyc1",
+        "size" : "512mb",
+        "private_networking" : true,
+        "snapshot_name" : "gameplan-base-{{user `version`}}-{{isotime}}"
+    }],
+    "provisioners" : [
+        {
+            "type" : "file",
+            "source" : "ansible.cfg",
+            "destination" : "/tmp/"
+        },
+        {
+            "type" : "shell",
+            "script" : "packer.sh",
+            "environment_vars" : ["DROPLET_USER_PASSWORD={{user `droplet-user-password`}}"]
+        },
+        {
+            "type" : "file",
+            "source" : "../ansible-base",
+            "destination" : "/home/droplet-user"
+        },
+        {
+            "type" : "ansible-local",
+            "playbook_dir" : "../ansible-base",
+            "playbook_file" : "../ansible-base/install.yml",
+            "inventory_file" : "../ansible-base/inv",
+            "extra_arguments" : "--verbose --limit localhost -e \"api_token={{user `api-token`}} ssh_key_name={{user `ssh-key-name`}}\""
+        }
+    ]
+}

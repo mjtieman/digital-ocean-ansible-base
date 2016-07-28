@@ -1,0 +1,16 @@
+---
+- name: Get the account SSH public key
+  shell: /etc/common/config/get_public_key.py '{{ api_token }}' '{{ ssh_key_name }}'
+  register: ssh_public_key
+
+- name: Create the .ssh directory for droplet-user
+  file: path=/home/droplet-user/.ssh mode=0700 owner=droplet-user group=droplet-user state=directory recurse=yes
+
+- name: Create the authorized_keys file for droplet-user
+  file: path=/home/droplet-user/.ssh/authorized_keys state=touch mode=0766 owner=droplet-user group=droplet-user
+
+- name: Add the SSH public key to authorized_keys
+  lineinfile: dest=/home/droplet-user/.ssh/authorized_keys line={{ ssh_public_key.stdout }}
+
+- name: Constrict the authorized_keys file permissions
+  file: path=/home/droplet-user/.ssh/authorized_keys mode=0600

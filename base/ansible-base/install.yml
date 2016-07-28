@@ -1,0 +1,26 @@
+---
+  - hosts: all
+    sudo: true
+    tasks:
+      - name: Install apt packages
+        apt:
+          name: '{{ item }}'
+          state: present
+        with_items:
+          - ntp
+          - iptables-persistent
+          - dnsmasq
+
+      - name: Install python modules
+        pip:
+          name: '{{ item }}'
+          state: present
+        with_items:
+          - dopy==0.3.5
+          - python-digitalocean
+          - supervisor
+
+  - hosts: all
+    sudo: true
+    roles:
+      - role: base-install

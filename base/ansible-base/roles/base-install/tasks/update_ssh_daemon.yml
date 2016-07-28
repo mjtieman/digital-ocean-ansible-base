@@ -1,0 +1,6 @@
+---
+- name: Set PermitRootLogin to no in sshd_config
+  lineinfile: dest=/etc/ssh/sshd_config regexp='PermitRootLogin yes' line='PermitRootLogin no'
+
+- name: Reload SSH
+  service: name=ssh state=restarted

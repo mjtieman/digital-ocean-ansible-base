@@ -1,0 +1,11 @@
+---
+supervisord_log_dir: /var/log/supervisor
+supervisord_services_dir: /etc/supervisor.d
+
+do_private_domain: in.gameplan.com
+do_name_server_1: 173.245.58.51
+do_name_server_2: 173.245.59.41
+do_name_server_3: 198.41.222.173
+
+google_name_server_1: 8.8.8.8
+google_name_server_2: 8.8.4.4

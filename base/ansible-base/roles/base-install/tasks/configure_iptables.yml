@@ -1,0 +1,20 @@
+---
+- name: Allow related and established connections
+  iptables: chain=INPUT ctstate=ESTABLISHED,RELATED jump=ACCEPT
+  become: yes
+
+- name: Allow SSH
+  iptables: chain=INPUT protocol=tcp destination_port=22 jump=ACCEPT
+  become: yes
+
+- name: Allow input on the loopback interface
+  iptables: chain=INPUT in_interface=lo jump=ACCEPT
+  become: yes
+
+- name: Final rule to drop all remaining packets
+  iptables: chain=INPUT jump=DROP
+  become: yes
+
+- name: Persist rules
+  shell: invoke-rc.d netfilter-persistent save
+  become: yes

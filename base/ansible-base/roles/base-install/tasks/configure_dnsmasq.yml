@@ -1,0 +1,28 @@
+---
+- name: Add forwarding to Digital Ocean name servers for private domain
+  blockinfile:
+    dest: /etc/dnsmasq.conf
+    block: |
+      server=/{{ do_private_domain }}/{{ item.ip }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.ip }}"
+  with_items:
+    - { ip: "{{ do_name_server_1 }}" }
+    - { ip: "{{ do_name_server_2 }}" }
+    - { ip: "{{ do_name_server_3 }}" }
+
+- name: Add Google name servers
+  blockinfile:
+    dest: /etc/dnsmasq.conf
+    block: |
+      server="{{ google_name_server_1 }}"
+      server="{{ google_name_server_2 }}"
+
+- name: Set listen-address to loopback address
+  lineinfile: dest=/etc/dnsmasq.conf insertafter=EOF line='listen-address=127.0.0.1'
+
+- name: Set cache-size to 0
+  lineinfile: dest=/etc/dnsmasq.conf insertafter=EOF line='cache-size=0'
+
+- name: Restart dnsmasq
+  shell: /etc/init.d/dnsmasq restart
+  become: yes

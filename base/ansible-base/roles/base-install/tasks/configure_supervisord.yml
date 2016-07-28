@@ -1,0 +1,20 @@
+---
+- name: Create the supervisor log directory
+  file: path={{ supervisord_log_dir }} mode=0766 state=directory recurse=yes
+
+- name: Create the service configurations directory
+  file: path={{ supervisord_services_dir }} mode=0766 state=directory recurse=yes
+
+- name: Copy the supervisor configuration file
+  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf mode=0755
+
+- name: Copy the init.d script
+  copy: src=supervisord dest=/etc/init.d mode=0755
+
+- name: Load supervisord init scipt
+  shell: update-rc.d supervisord defaults
+  become: yes
+
+- name: Start supervisor
+  service: name=supervisord state=started
+  become: yes

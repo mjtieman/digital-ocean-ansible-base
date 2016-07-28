@@ -1,0 +1,21 @@
+---
+- name: Create the common config directory
+  file: path=/etc/common/config mode=0755 owner=droplet-user group=droplet-user state=directory recurse=yes
+
+- name: Copy the script to get the account SSH public key
+  copy: src=get_public_key.py dest=/etc/common/config owner=droplet-user group=droplet-user mode=0755
+
+- name: Add the SSH public key to droplet-user
+  include: add_public_key.yml
+
+- name: Configure and start supervisord
+  include: configure_supervisord.yml
+
+- name: Configure iptables
+  include: configure_iptables.yml
+
+- name: Configure dnsmasq
+  include: configure_dnsmasq.yml
+
+- name: Disable remote root login
+  include: update_ssh_daemon.yml
