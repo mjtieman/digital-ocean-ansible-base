@@ -3,7 +3,7 @@ Creates a Digital Ocean Ubuntu 16.04x64 droplet image with basic configuration a
 
 This project is the first piece in a larger effort to automate deploys for a pet project of mine. Since this project provisions an application agnostic image, I figured more people could make use of it, building on it to suite their own needs.
 
-I am receptive to suggestions and happy to accept pull requests. However, for pull requests there must be an accompanying issue and commit messages must begin with: ```Issue-{issue number}```.
+I am receptive to suggestions and happy to accept pull requests. However, for pull requests there **must be an accompanying issue and commit messages must begin with: ```Issue-{issue number}```**.
 ## Resulting Image Configuration
 * Installed packages and services
   * ntp
@@ -48,7 +48,7 @@ packer build -machine-readable -var "version=0" -var "api-token=7c356fc96eb7870b
 ## Private DNS Zone
 Much of this section came from or was inspired by so0k's gist [here](https://gist.github.com/so0k/cdd24d0a4ad92014a1bc).
 
-The larger project which inspired this automation uses [Consul](https://www.consul.io/) for service discovery. This makes it easy to get address information for a service to get URLs for other microservices and infrastructure, but we still need to know how to reach the Consul servers.
+The larger project which inspired this one uses [Consul](https://www.consul.io/) for service discovery. This makes it easy for a service to get URLs for other services and infrastructure, but we still need to know how to reach the Consul servers.
 
 One solution to this challenge is to use DNS, no need for hard coded ips but we still need to either buy a domain or setup our own DNS server (which we still need to hard code the ip of). To get around this we can create a private DNS zone using the Digital Ocean name servers.
 
