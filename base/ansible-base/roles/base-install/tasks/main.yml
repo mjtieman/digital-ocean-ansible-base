@@ -16,6 +16,7 @@
 
 - name: Configure dnsmasq
   include: configure_dnsmasq.yml
+  when: private_domain | default("") != ""
 
 - name: Disable remote root login
   include: update_ssh_daemon.yml

@@ -3,7 +3,7 @@
   blockinfile:
     dest: /etc/dnsmasq.conf
     block: |
-      server=/{{ do_private_domain }}/{{ item.ip }}
+      server=/{{ private_domain }}/{{ item.ip }}
     marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.ip }}"
   with_items:
     - { ip: "{{ do_name_server_1 }}" }
