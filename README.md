@@ -38,11 +38,15 @@ The image is created by running a single packer command. There are a few variabl
 |version|Yes|An arbitrary version number added to the image name.|
 |api-token|Yes|The API token used to fetch the specified SSH public key from the account.|
 |ssh-key-name|Yes|The name of the SSH public key in the account which will be added to the droplet-user's authorized keys.|
-|droplet-user-password|No|Password assigned to the droplet-user. Optional, defaults to "test".|
+|base-snapshot-name|Yes|The base name of the created snapshot.|
+|droplet-user-password|No|Password assigned to the droplet-user. Defaults to "test".|
+|region|No|Region to deploy the image to. Defaults to nyc1.|
+|base-image|No|Base image to build from. Defaults to ubuntu-16-04-x64.|
+|private-domain|No|The domain to use Digital Ocean name server to resolve. If not given dnsmasq will not be configured with any conditional forwarding.|
 
 ### Example Command
 ```
-packer build -machine-readable -var "version=0" -var "api-token=7c356fc96eb7870b5e759dbae176cb37be0e38f5d303dea7bf34d4697a2c339b" -var "ssh-key-name=ansible_test" -var "droplet-user-password=password" base.json
+packer build -machine-readable -var "version=0" -var "api-token=ead3f830ba0c6de5cdcf6b76c294c0309d14f2615d56f598eeb3a28941650378" -var "base-snapshot-name=base-name" -var "ssh-key-name=ansible_test" -var "droplet-user-password=password" -var "private-domain=in.gameplan.com" base.json
 ```
 
 ## Private DNS Zone
