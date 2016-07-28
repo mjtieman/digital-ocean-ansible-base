@@ -45,6 +45,7 @@ The image is created by running a single packer command. There are a few variabl
 |private-domain|No|The domain to use Digital Ocean name server to resolve. If not given dnsmasq will not be configured with any conditional forwarding.|
 
 ### Example Command
+From the packer directory execute the ```packer build``` command with the appropriote variables.
 ```
 packer build -machine-readable -var "version=0" -var "api-token=ead3f830ba0c6de5cdcf6b76c294c0309d14f2615d56f598eeb3a28941650378" -var "base-snapshot-name=base-name" -var "ssh-key-name=ansible_test" -var "droplet-user-password=password" -var "private-domain=in.gameplan.com" base.json
 ```
