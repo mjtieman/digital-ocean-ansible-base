@@ -1,5 +1,7 @@
 #!/bin/bash
 sudo apt-get update
+sudo apt-get install apt-transport-https -y
+sudo apt-get install ca-certificates -y
 sudo apt-get install libffi-dev -y
 sudo apt-get install libssl-dev -y
 sudo apt-get install libpython-all-dev -y

@@ -1,11 +1,13 @@
 # Digial Ocean Ansible Base
-Creates a Digital Ocean Ubuntu 16.04x64 droplet image with basic configuration and common dependencies using Ansible and Packer.
+Creates a Digital Ocean droplet image with basic configuration and common dependencies using Ansible and Packer.
 
 This project is the first piece in a larger effort to automate deploys for a pet project of mine. Since this project provisions an application agnostic image, I figured more people could make use of it, building on it to suite their own needs.
 
 I am receptive to suggestions and happy to accept pull requests. However, for pull requests there **must be an accompanying issue and commit messages must begin with: ```Issue-{issue number}```**.
 ## Resulting Image Configuration
 * Installed packages and services
+  * apt-transport-https
+  * ca-certificates
   * ntp
   * iptables-persistent
   * dnsmasq
@@ -47,7 +49,7 @@ The image is created by running a single packer command. There are a few variabl
 ### Example Command
 From the packer directory execute the ```packer build``` command with the appropriote variables.
 ```
-packer build -machine-readable -var "version=0" -var "api-token=ead3f830ba0c6de5cdcf6b76c294c0309d14f2615d56f598eeb3a28941650378" -var "base-snapshot-name=base-name" -var "ssh-key-name=ansible_test" -var "droplet-user-password=password" -var "private-domain=in.gameplan.com" base.json
+packer build -machine-readable -var "version=0" -var "api-token=ead3f830ba0c6de5cdcf6b76c294c0309d14f2615d56f598eeb3a28941650378" -var "base-snapshot-name=base-name" -var "ssh-key-name=my_public_key_name" -var "droplet-user-password=password" -var "private-domain=in.example.com" base.json
 ```
 
 ## Private DNS Zone
