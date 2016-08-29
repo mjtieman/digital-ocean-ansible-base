@@ -1,0 +1,9 @@
+---
+- name: Download dopy fork source
+  get_url: url=https://github.com/mjtieman/dopy/archive/master.zip dest=/home/droplet-user owner=droplet-user group=droplet-user mode=0755
+
+- name: Unzip the dopy source
+  unarchive: src=/home/droplet-user/dopy-master.zip dest=/home/droplet-user remote_src=yes
+
+- name: Install dopy from source
+  shell: python setup.py install chdir=/home/droplet-user/dopy-master

@@ -14,6 +14,8 @@ I am receptive to suggestions and happy to accept pull requests. However, for pu
   * dopy
   * python-digitalocean
   * supervisor
+  * unzip
+  * dopy
 
 * A generic user, "droplet-user"
   * member of sudo users

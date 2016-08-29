@@ -5,6 +5,9 @@
 - name: Copy the script to get the account SSH public key
   copy: src=get_public_key.py dest=/etc/common/config owner=droplet-user group=droplet-user mode=0755
 
+- name: Install dopy fork supporting tag-based discovery from source
+  include: install_dopy_fork.yml
+
 - name: Add the SSH public key to droplet-user
   include: add_public_key.yml
 
