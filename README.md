@@ -15,7 +15,7 @@ I am receptive to suggestions and happy to accept pull requests. However, for pu
   * python-digitalocean
   * supervisor
   * unzip
-  * dopy
+  * dopy ([fork](https://github.com/mjtieman/dopy) that supports getting droplets by tag)
 
 * A generic user, "droplet-user"
   * member of sudo users
@@ -29,6 +29,8 @@ I am receptive to suggestions and happy to accept pull requests. However, for pu
 
 * Disable remote root login
 
+* Add the API token to ```/etc/do/api_token.yml```
+
 ## Prerequisites
 * Packer, install instructions [here](https://www.packer.io/intro/getting-started/setup.html).
 * A Digital Ocean API token for the account the image will be created in.
@@ -38,7 +40,7 @@ I am receptive to suggestions and happy to accept pull requests. However, for pu
 The image is created by running a single packer command. There are a few variables that need to be passed to Packer as part of the command
 
 |Variable Name|Required|Description|
-|:-----------:|:------:|:---------:|
+|:------------|:-------|:----------|
 |version|Yes|An arbitrary version number added to the image name.|
 |api-token|Yes|The API token used to fetch the specified SSH public key from the account.|
 |ssh-key-name|Yes|The name of the SSH public key in the account which will be added to the droplet-user's authorized keys.|
@@ -51,7 +53,7 @@ The image is created by running a single packer command. There are a few variabl
 ### Example Command
 From the packer directory execute the ```packer build``` command with the appropriote variables.
 ```
-packer build -machine-readable -var "version=0" -var "api-token=ead3f830ba0c6de5cdcf6b76c294c0309d14f2615d56f598eeb3a28941650378" -var "base-snapshot-name=base-name" -var "ssh-key-name=my_public_key_name" -var "droplet-user-password=password" -var "private-domain=in.example.com" base.json
+packer build -machine-readable -var "version=0" -var "api-token=YOUR_TOKEN_HERE" -var "base-snapshot-name=base-name" -var "ssh-key-name=my_public_key_name" -var "droplet-user-password=password" -var "private-domain=in.example.com" base.json
 ```
 
 ## Private DNS Zone

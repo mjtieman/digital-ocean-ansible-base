@@ -1,7 +1,7 @@
 ---
   - hosts: all
     sudo: true
-    tasks:
+    pre_tasks:
       - name: Install apt packages
         apt:
           name: '{{ item }}'
@@ -21,7 +21,12 @@
           - python-digitalocean
           - supervisor
 
-  - hosts: all
-    sudo: true
     roles:
       - role: base-install
+      - role: install-dopy-fork
+      - role: add-public-key
+      - role: configure-supervisord
+      - role: configure-iptables
+      - role: disable-remote-login
+      - role: configure-dnsmasq
+        when: private_domain | default("") != ""
