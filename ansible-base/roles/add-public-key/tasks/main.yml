@@ -1,4 +1,7 @@
 ---
+- name: Copy the script to get the account SSH public key
+  copy: src=get_public_key.py dest=/etc/common/config owner=droplet-user group=droplet-user mode=0755
+  
 - name: Get the account SSH public key
   shell: /etc/common/config/get_public_key.py '{{ api_token }}' '{{ ssh_key_name }}'
   register: ssh_public_key
