@@ -8,7 +8,7 @@ sudo apt-get install libpython-all-dev -y
 sudo apt-get install python-pip -y
 
 sudo pip install markupsafe # Not included in jinja dependencies, need to install ourselves
-sudo pip install ansible==2.1.0
+sudo pip install ansible==2.2.0
 
 # Create a generic user for the droplet
 sudo apt-get install whois
