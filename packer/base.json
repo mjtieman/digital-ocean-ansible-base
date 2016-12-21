@@ -16,7 +16,8 @@
         "region" : "{{ user `region` }}",
         "size" : "512mb",
         "private_networking" : true,
-        "snapshot_name" : "{{ user `base-snapshot-name` }}-{{user `version`}}-{{isotime}}"
+        "snapshot_name" : "{{ user `base-snapshot-name` }}-{{user `version`}}-{{isotime}}",
+        "ssh_username" : "root"
     }],
     "provisioners" : [
         {
